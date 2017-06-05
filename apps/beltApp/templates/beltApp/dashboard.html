@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h4>Welcome {{request.session.fName}}</h4>
+    <a href="{% url 'logRegApp:logout' %}">Logout</a>
+    <a href="{% url 'beltApp:tripform' %}">Add Travel Plan</a>
+    <h4>Your Trip Schedules</h4>
+    <table>
+      <thead>
+        <th>Destination</th>
+        <th>Travel Start Date</th>
+        <th>Travel End Date</th>
+        <th>Plan</th>
+      </thead>
+      <tbody>
+        {% for trip in users_trips %}
+        <tr>
+          <td><a href="{% url 'beltApp:destination' trip.id %}">{{trip.destination}}</a></td>
+          <td>{{trip.date_start|date:"M d Y"}}</td>
+          <td>{{trip.date_end|date:"M d Y"}}</td>
+          <td>{{trip.description}}</td>
+        </tr>
+        {% endfor %}
+        {% for trip in joined_trips %}
+        <tr>
+          <td><a href="{% url 'beltApp:destination' trip.id %}">{{trip.destination}}</a></td>
+          <td>{{trip.date_start|date:"M d Y"}}</td>
+          <td>{{trip.date_end|date:"M d Y"}}</td>
+          <td>{{trip.description}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h4>Other Users' Travel Plans</h4>
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Destination</th>
+        <th>Travel Start Date</th>
+        <th>Travel End Date</th>
+        <th>Do You Want to Join?</th>
+      </thead>
+      <tbody>
+        {% for trip in others_trips %}
+        {% if trip.owner.id != request.session.id %}
+        <tr>
+          <td>{{trip.owner.name}}</td>
+          <td><a href="{% url 'beltApp:destination' trip.id %}">{{trip.destination}}</a></td>
+          <td>{{trip.date_start|date:"M d Y"}}</td>
+          <td>{{trip.date_end|date:"M d Y"}}</td>
+          <td><a href="{% url 'beltApp:verifyJoin' trip.id %}">Join</a></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+  </body>
+</html>

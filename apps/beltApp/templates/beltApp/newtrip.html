@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Plan</title>
+  </head>
+  <body>
+    <a href="{% url 'beltApp:dashboard' %}">Home</a>
+    <a href="{% url 'logRegApp:logout' %}">Logout</a>
+    <h4>Add a Trip</h4>
+    <form action="{% url 'beltApp:addTrip' %}" method="post">
+      {% csrf_token %}
+      <label for="destination">Destination: </label>
+      <input type="text" name="destination" value="">
+      <br>
+      <label for="description">Description:</label>
+      <input type="text" name="description" value="">
+      <br>
+      <label for="start">Travel Date From: </label>
+      <input type="date" name="start" value="">
+      <br>
+      <label for="end">Travel Date To: </label>
+      <input type="date" name="end" value="">
+      <br>
+      <button type="submit" name="newtrip" value="add">Add</button>
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+  </body>
+</html>

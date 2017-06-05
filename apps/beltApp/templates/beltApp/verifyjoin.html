@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Join This Trip?</title>
+  </head>
+  <body>
+    <h4>Are you sure you want to join this trip?</h4>
+    <p>Destination: {{trip.destination}}</p>
+    <p>Planned By: {{trip.owner.name}}</p>
+    <p>Travel Start Date: {{trip.date_start}}</p>
+    <p>Travel End Date: {{trip.date_end}}</p>
+    <form action="{% url 'beltApp:joinTrip' trip.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit" name="verify" value="yes">Yes</button>
+      <button type="submit" name="verify" value="no">No</button>
+    </form>
+  </body>
+</html>

@@ -6,9 +6,6 @@ from django.shortcuts import render, redirect
 from .models import Users
 
 # Create your views here.
-def index(request):
-    return render(request, 'logRegApp/index.html')
-
 def log_reg(request):
     if request.method == 'POST':
         if request.POST['action'] == 'register':
@@ -20,8 +17,8 @@ def log_reg(request):
                 messages.error(request, error)
         else:
             request.session['id'] = response[1].id
-            request.session['fName'] = response[1].fName
-            return redirect('/')
+            request.session['fName'] = response[1].name
+            return redirect('beltApp:dashboard')
     return redirect('beltApp:index')
 
 def logout(request):

@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -10,18 +11,22 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('logRegApp', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Users',
+            name='Trip',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fName', models.CharField(max_length=50)),
-                ('username', models.CharField(max_length=100)),
-                ('hash_psw', models.CharField(max_length=255)),
+                ('destination', models.CharField(max_length=255)),
+                ('description', models.TextField()),
+                ('date_start', models.DateTimeField()),
+                ('date_end', models.DateTimeField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
+                ('joined_by', models.ManyToManyField(related_name='joined_trip', to='logRegApp.Users')),
+                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='trip_owner', to='logRegApp.Users')),
             ],
         ),
     ]

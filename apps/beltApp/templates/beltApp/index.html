@@ -9,14 +9,11 @@
       <h4>Register</h4>
       <form action="{% url 'logRegApp:log_reg' %}" method="post">
         {% csrf_token %}
-        <label for="fName">First Name: </label>
-        <input type="text" name="fName" value="">
+        <label for="name">Name: </label>
+        <input type="text" name="name" value="">
         <br>
-        <label for="lName">Last Name: </label>
-        <input type="text" name="lName" value="">
-        <br>
-        <label for="email">Email: </label>
-        <input type="email" name="email" value="">
+        <label for="username">Username: </label>
+        <input type="text" name="username" value="">
         <br>
         <label for="psw">Password: </label>
         <input type="password" name="psw" value="">
@@ -30,8 +27,8 @@
       <h4>Login</h4>
       <form action="{% url 'logRegApp:log_reg' %}" method="post">
         {% csrf_token %}
-        <label for="email">Email: </label>
-        <input type="email" name="email" value="">
+        <label for="username">Username: </label>
+        <input type="text" name="username" value="">
         <br>
         <label for="psw">Password: </label>
         <input type="password" name="psw" value="">
